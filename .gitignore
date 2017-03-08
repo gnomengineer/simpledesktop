@@ -1,0 +1,10 @@
+*/*.aux
+*/*.dvi
+*/*.lof
+*/*.log
+*/*.lot
+*/*.out
+*/*.synctex.gz
+*/*.toc
+*/*.pdf
+doc/linklist
