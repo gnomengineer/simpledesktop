@@ -1,0 +1,60 @@
+\section{Requirements}
+		\subsection{Functional Requirements}
+        \begin{table}[H]
+            \centering
+            \begin{longtabu}to \linewidth {l|X}
+                \textbf{Cat.} & \textbf{Description}\\ \hline
+                M & Windows can be swapped with short-cut\\ \hline
+                M & a start view for favourite applications\\ \hline
+                M & a run dialogue for executing commands\\ \hline
+                M & most used programs have a short-cut assigned\\ \hline
+                M & screen shot can be taken by using short-cuts\\ \hline
+                M & battery status is watched and warned\\ \hline
+                M & windows can be resized and moved\\ \hline
+                M & lock screen available\\ \hline
+                n & client focus on mouse pointer\\ \hline
+                n & computer information is a toggled HUD\\ \hline
+                n & tiling rules for certain application types\\ \hline
+                n & dynamic desktop adding\\ \hline
+            \end{longtabu}
+            \caption{functional requirements categorized after Major (M) and Minors (n)}
+        \end{table}
+		
+		\subsection{Non-Functional Requirements}	
+        \begin{table}[H]
+            \centering
+            \begin{longtabu}to \linewidth {l|X}
+                \textbf{Cat.} & \textbf{Description}\\ \hline
+                \multicolumn{2}{c}{\textbf{Computer Information}}\\ \hline
+                M & CPU usage per Core is shown\\ \hline
+                M & RAM used and available are shown\\ \hline
+                M & Notification/Symbol to see on which desktop\\ \hline
+                M & Display count of packages to be updated\\ \hline
+                M & Display Volume information\\ \hline
+                M & time and date according to correct time zone is shown\\ \hline
+                n & Display unread mail count\\ \hline
+                n & Notification/Symbol to see which tiling mode\\ \hline
+                n & Display User information (HDD,\\ \hline
+                \multicolumn{2}{c}{\textbf{Application Behavior}}\\ \hline
+                M & Terminal starting in tiled mode\\ \hline
+                M & Browser and IDE starting in maximized mode\\ \hline
+                n & All other applications starting in floating\\ \hline
+                n & open where mouse pointer is\\ \hline
+                n & Animation on open, close and move of clients\\ \hline
+                n & lock screen is hiding information by blur or black screen\\ \hline
+                n & Animation when switching desktop\\ \hline
+                \multicolumn{2}{c}{\textbf{Application Starting}}\\ \hline
+                M & the run dialogue stands free in the screen\\ \hline
+                M & the most used programs can be started by clicking on their icon\\ \hline
+                n & the icon view behaves like windows 10 start view\\ \hline
+                \multicolumn{2}{c}{\textbf{Tab Switching}}\\ \hline
+                M & Display the open clients in mini view\\ \hline
+                M & Highlight selected client in miniview\\ \hline
+                M & allow fast switching without mini view\\ \hline
+                n & Make clients transparent in desktop other as the active/selected one\\ \hline
+                \multicolumn{2}{c}{\textbf{Taskbar View}}\\ \hline
+                M & the taskbar doesn't cover space when working\\ \hline
+                n & the taskbar can be hidden\\ \hline
+            \end{longtabu}
+            \caption{non-functional requirements categorized after Major (M) and Minors (n)}
+        \end{table}

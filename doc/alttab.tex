@@ -1,0 +1,43 @@
+\subsection{alttab}
+	The git user jorenheit has developed a lua script which simulates the familiar alt-tab functionality.\\
+	the latest version is available over github and can be cloned as folder 'alttab' into the active awesome directory.
+	\begin{lstlisting}
+git clone https://github.com/jorenheit/awesome_alttab alttab
+	\end{lstlisting}
+	
+	\noindent in rc.lua can then alttab be 'required' and used for key-bindings
+	\begin{lstlisting}
+alttab = require("alttab")	
+	\end{lstlisting}
+	
+	\begin{lstlisting}
+   awful.key({ "Alt_l",}, "Tab",                                                      
+       function ()                                                                              
+          alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+       end                                                                                      
+   ),                                                                                           
+                                                                                                
+   awful.key({ "Alt_l", "Shift"}, "Tab",                                                      
+       function ()                                                                              
+          alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
+       end                                                                                      
+   ),	
+	\end{lstlisting}
+	
+	\noindent \\The view of the switching can be customized in the 'init.lua' file at the alttab.settings table.
+	\begin{lstlisting}
+local settings = { 
+   preview_box = true,
+   preview_box_bg = "#rrggbbaa", -- #b1aaaa with 0.659 opacity
+   preview_box_border = "#00000000", -- #black with 100 opacity
+   preview_box_fps = 30, 
+   preview_box_delay = 150,
+
+   client_opacity = true, -- default is false
+   client_opacity_value = 0.5,
+   client_opacity_delay = 150,
+}
+	\end{lstlisting}
+	
+	more information about the module can be found \href{https://awesomewm.org/wiki/Familiar_Alt_Tab}{here}.
+	

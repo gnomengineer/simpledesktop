@@ -1,0 +1,212 @@
+		\subsection{Awesome}
+    			\subsubsection{Application Rules}
+    				The behavior of certain applications can be done by rules in awesome. This rules look in a general manner like the code below
+    				\begin{lstlisting}[caption={example ruling}]
+awful.rules.rules = {
+ { rule = { }, properties = { property = value, property = value , ...} },
+}
+    				\end{lstlisting}
+    				
+    				The ''rule={}'' part selects which window is affected by it. possible selectors are \textbf{rule, rule\_any, except} and \textbf{except\_any} (shortly rule selects matching, except selects non-matching and x\_any must match \textit{one} or \textit{more})\\
+    				The ''property={}'' part defines the different properties for the selected window. A list of all properties and detailed explanation about rules can be found here: 
+    				\url{https://awesome.naquadah.org/wiki/Understanding_Rules#Window_Properties}\\
+    				
+\noindent  The terminal is tiled, 50\% transparent and has no border (exchange urxvt with the desired terminal)
+				\begin{lstlisting}[caption={ruling for terminals}]
+{ 	rule = { name = "urxvt" }, 
+	properties 
+	{
+		opacity = 0.5, 
+		floating = false, 
+		maximized = false, 
+		fullscreen = false 
+	}
+},
+				\end{lstlisting}
+				
+				The browser and the used IDE's have to be maximized with borders. (again, the application name can be exchanged)
+				\begin{lstlisting}[caption={ruling for IDE and browser}]
+{ 	rule = { class = "chromium" }, 
+	properties 
+	{ 
+		floating = false,
+		maximized = true, 
+		fullscreen = false,
+		border_width = beautiful.border_width,
+		border_color = beautiful.border_normal 
+	} 
+},
+				\end{lstlisting}
+				
+				All other applications use default border and are floating
+				\begin{lstlisting}[caption={ruling for default applications}]
+{ 	rule = { class = "gedit" }, 
+	properties 
+	{ 
+		floating = true,
+		maximized = false, 
+		fullscreen = false,
+		border_width = beautiful.border_width,
+		border_color = beautiful.border_normal 
+	} 
+},
+				\end{lstlisting}
+				
+			\subsubsection{Application Opening}
+				to be defined\ldots
+				
+			\subsubsection{Beautiful Design}
+				The Beautiful library defines user themes such as color, background image or icons. The variables and settings are written in a separate lua file called 'theme.lua' under /usr/share/awesome/themes/<yourtheme>/theme.lua The \project does only need the the background option of the theme.lua.\\
+				The Background can be set by simple commands over the console.
+				\begin{lstlisting}
+ in testing
+				\end{lstlisting}			
+				
+			\subsubsection{Keybindings}
+				The \project has various key bindings to open and close applications, open pop dialogs, changing desktop. The Mapping between key and function is shown in table \ref{keymapping} in the appendix.\\
+				The special keys are Mod (Windows Logo key), LShift, RShift, LControl, RControl.
+				
+			\subsubsection{Print Screen}
+				the print screen script is executed over a shortcut (see table \ref{keymapping} for reference). The print screen will be done 2 different ways.\\
+				A simple single press will take a single screenshot on the focused window.\\
+				
+				\begin{lstlisting}[caption={print screen command}]
+awful.key({}, "PrtScr", function () awful.util.spawn("scrot -u ") end),
+				\end{lstlisting}
+				this code executes the shell command \textit{scrot} with the parameter \textit{-u} which takes an instant screenshot of the focused window.
+			
+				\shadebox{A longer press (2 seconds) will start a selection to take a screen shot of. \textbf{NOT IMPLEMENTED YET}}
+			\subsubsection{Desktop Addition}
+				To dynamically add desktop (or tags as they are called by awesome) the shifty library is used.\\
+				With \textit{shifty} tags can be configured to be generated once a specific client opens or key-bindings can be set to add, rename, delete, swap tags.
+				
+				\begin{lstlisting}[caption={example of dynamic adding with shifty}]
+...
+awful.key({modkey}, "XF86Back", shifty.shift_prev),
+awful.key({modkey}, "XF86Forward", shifty.shift_next),
+awful.key({modkey}, "t", function() shifty.add({ rel_index = 1 }) end),
+awful.key({modkey, "Control"},
+            "t",
+            function() shifty.add({ rel_index = 1, nopopup = true }) end
+            ),
+...
+				\end{lstlisting}
+				
+				\shadebox{Attention! if you implement shifty without a template you have to remove everything related to tag creation and the manage functions. \href{https://awesome.naquadah.org/wiki/Shifty\#Advanced}{more details\ldots}}
+			\subsubsection{Brightness}
+				The brightness is handled with the \textit{xbacklight} program. it uses simple parameters for decreasing and increasing the brightness.
+				\begin{lstlisting}
+    awful.key({ }, "XF86MonBrightnessDown", function ()
+        awful.util.spawn("xbacklight -dec 15") end),
+				\end{lstlisting}
+				\textit{xbacklight -dec 15} decreases the brightness via 15\%\\
+				\textit{xbacklight -inc 15} increases the brightness via 15\%
+				
+			\subsubsection{Volume Handling}
+				The volume display is handled by the conky application. Awesome is responsible for changing the percent and toggle the volume (mute/unmute).\\
+				This is simply done by a key-binding to the appropriate keys.
+				\begin{lstlisting}
+awful.key({ mod }, "XF86AudioRaiseVolume", function ()
+		awful.util.spawn("amixer set Master 9%+") end),
+				\end{lstlisting}
+				Using the \textit{amixer} command: whereas 9\% changes the volume by 9\% upwards if there is a + (plus) appended or downward if a - (minus) is appended. For toggling the sound on or off, the command \textit{amixer set Master \textbf{toggle}} is used.\\
+				For defining the appropriate keys see \ref{keymapping}
+				
+			\subsubsection{Battery Warning}
+				The battery usage is shown in the conky application. Nevertheless a pop-up warning is displayed on the screen to warn the user immediately when the battery is lower than 10\%\\
+				The message shows up in the top right corner has a warning red background and a dark red foreground color.\\
+				\begin{lstlisting}
+local function trim(s)
+  return s:find'^%s*$' and '' or s:match'^%s*(.*%S)'
+end
+
+local function bat_notification()
+  
+  local capacity_raw = assert(io.open("/sys/class/power_supply/BAT0/capacity", "r"))
+  local status_raw = assert(io.open("/sys/class/power_supply/BAT0/status", "r"))
+  local power_raw = assert(io.open("/sys/class/power_supply/BAT0/power_now","r"))
+  local energy_raw = assert(io.open("/sys/class/power_supply/BAT0/energy_now","r"))
+  
+  local battery_capacity = tonumber(capacity_raw:read("*all"))
+  local battery_status = trim(status_raw:read("*all"))
+  local battery_usage = tonumber(power_raw:read("*all"))
+  local battery_energy = tonumber(energy_raw:read("*all"))
+  
+  local battery_time = battery_energy / battery_usage * 60
+  local battery_time_minute =  math.floor(battery_time % 60)
+  local battery_time_hour = math.floor((battery_time - battery_time_minute) / 60)
+
+  if (battery_capacity <= 10 and battery_status == "Discharging") then
+    naughty.notify({ title      = "Battery Warning"
+	 , text       = "Battery low! " .. battery_capacity .."%" .. " left! \n " 
+	 .. battery_time_hour .. ":" ..battery_time_minute .. " remaining"
+	 , fg="#ff0000"
+	 , bg="#deb887"
+	 , timeout    = 15
+	 , position   = "top right"
+    })
+  end
+end
+
+battimer = timer({timeout = 120})
+battimer:connect_signal("timeout", bat_notification)
+battimer:start()
+				\end{lstlisting}
+				
+			\subsubsection{Conky HUD}
+				awesome is able to display Conky as an HUD and being toggled to front and back. This is done with following code
+				\begin{lstlisting}
+do
+    local conky = nil
+
+-- iteration through all clients to find conky
+    function get_conky(default)
+        if conky and conky.valid then
+            return conky
+        end
+
+        conky = awful.client.iterate(function(c) return c.class == "Conky" end)()
+        return conky or default
+    end
+    
+-- raise and lower conky
+    function raise_conky()
+        get_conky({}).ontop = true
+    end
+    function lower_conky()
+        get_conky({}).ontop = false
+    end
+    
+-- creates a timer of 0.01s
+    local t = gears.timer({ timeout = 0.01 })
+    t:connect_signal("timeout", function()
+        t:stop()
+        lower_conky()
+    end)
+    
+-- calls a timer 't'
+    function lower_conky_delayed()
+        t:again()
+    end
+    
+-- toggles conky
+    function toggle_conky()
+        local conky = get_conky({})
+        conky.ontop = not conky.ontop
+    end
+end
+				\end{lstlisting}
+				
+				For the code above to work conky itself needs some awesome client rules and key-bindings  assigned.
+				\begin{lstlisting}
+{ rule = { class = "Conky" },
+  properties = {
+      floating = true,
+      sticky = true,
+      ontop = false,
+      focusable = false
+  } }
+				\end{lstlisting}
+				\begin{lstlisting}
+awful.key({Mod}, "C", function() toggle_conky() end)
+				\end{lstlisting}

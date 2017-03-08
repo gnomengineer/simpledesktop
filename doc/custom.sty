@@ -1,0 +1,117 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{custom}[2013/01/13 Custom Style Package]
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage{lmodern}
+\RequirePackage{enumerate}
+%\RequirePackage[landscape]{geometry} %for horizontal aligned documents
+\RequirePackage[top=100pt,bottom=100pt,left=100pt,right=100pt]{geometry}
+
+%table packages
+\RequirePackage{tabularx}
+\RequirePackage{array}
+\RequirePackage{longtable}
+\RequirePackage{tabu}
+\RequirePackage{rotating}
+\RequirePackage{multicol}
+\RequirePackage{booktabs}
+\RequirePackage{tablefootnote}
+\RequirePackage[table]{xcolor}
+
+%mathe packages
+
+%figure packages
+\RequirePackage{subcaption}
+\RequirePackage{caption}
+\RequirePackage{float}
+\RequirePackage{graphicx}
+\RequirePackage{wrapfig}
+
+%bibliography packages
+\RequirePackage{hyperref}
+\RequirePackage{apacite}
+
+\RequirePackage{color}
+
+%for displaying source code
+\RequirePackage{listings}
+\lstset{
+                basicstyle=\footnotesize,
+                keywordstyle=\color{blue},
+                stringstyle=\color{red},
+                commentstyle=\color{green},
+                 frame = tb,
+                 language={[5.0]Lua},
+}
+
+\RequirePackage{float}
+%====================================
+%============OWN COMMANDS==============
+%====================================
+
+%============PAGE PROPERTIES=============
+\newcommand{\revisiondate}{\today}
+\newcommand{\documenttitle}{SimpleDesktop - Design \& Requirements}
+\newcommand{\authors}{Daniel Föhn}
+\newcommand{\subtitle}{a lightweight desktop setting}
+\newcommand{\project}{SimpleDesktop }
+
+%==============COLORS==================
+\definecolor{shadecolor}{RGB}{200,200,200}
+\definecolor{lightgreen}{RGB}{0,50,0}
+\definecolor{grey}{RGB}{200,200,200}
+
+%==============BOXES==================
+%small colored box with no visible border, breaks before and after box
+\newcommand{\shadebox}[1]{\par\noindent\colorbox{shadecolor}
+{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1}}}
+%small noncolored box with visible border, breaks before and after box
+\newcommand{\commandbox}[1]{\par\noindent\fbox{\begin{minipage}{\textwidth}#1\end{minipage}}\par\noindent}
+%small colored box with breaks and border
+\newcommand{\lessons}[1]{\par\noindent\colorbox{lightgreen}\fbox{\begin{minipage}{\textwidth}#1\end{minipage}}\par\noindent}
+%====================================
+
+%==========TITLE================
+\newcommand*{\titleGM}{\begingroup % Create the command for including the title page in the document
+\hbox{ % Horizontal box
+\hspace*{0.2\textwidth} % Whitespace to the left of the title page
+\rule{1pt}{\textheight} % Vertical line
+\hspace*{0.05\textwidth} % Whitespace between the vertical line and title page text
+\parbox[b]{0.75\textwidth}{ % Paragraph box which restricts text to less than the width of the page
+
+{\noindent\Huge\bfseries \documenttitle}\\[2\baselineskip] % Title
+{\large \textit{\subtitle}}\\[4\baselineskip] % Tagline or further description
+{\Large \textsc{\authors}} % Author name
+
+\vspace{0.5\textheight} % Whitespace between the title block and the publisher
+{\noindent \revisiondate}\\[\baselineskip] 
+}}
+\endgroup}
+%=============================
+
+%==========HEADER & FOOTER=======
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\documenttitle}
+\rhead{\revisiondate}
+\fancyfoot[C]{\thepage}
+%=============================
+
+%===========TABLE COMMANDS=======
+\renewcommand\tabularxcolumn[1]{>{\small}m{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand\RotText[1]{\rotatebox{90}{\parbox{2cm}{\centering#1}}}
+\renewcommand{\arraystretch}{1.5}
+
+\newcommand{\tableformat}{\centering\rowcolors{1}{grey}{white}}
+
+\newlength{\arrayrulewidthOriginal}
+\newcommand{\Cline}[2]{%
+  \noalign{\global\setlength{\arrayrulewidthOriginal}{\arrayrulewidth}}%
+  \noalign{\global\setlength{\arrayrulewidth}{#1}}\cline{#2}%
+  \noalign{\global\setlength{\arrayrulewidth}{\arrayrulewidthOriginal}}}
+%=============================
+\endinput

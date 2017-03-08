@@ -1,0 +1,33 @@
+\documentclass[a4paper, 10pt, fleqn]{article}
+\usepackage{custom}
+\graphicspath{{images/}}
+\begin{document}
+
+    \begin{titlepage}
+        \titleGM
+        \thispagestyle{empty}
+    \end{titlepage}
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	
+	\clearpage
+	\input{introduction.tex}
+			
+	\clearpage
+	\input{overview.tex}
+		
+	\clearpage
+    \input{requirement.tex}
+
+	\clearpage
+	\input{components.tex}
+	
+	\clearpage
+    \section*{Appendix A}
+	\input{appendix/appendix_a.tex}
+    
+    \clearpage
+    \section*{Appendix B}
+    \input{appendix/appendix_b.tex}
+\end{document}
