@@ -2,8 +2,6 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
 
-module("keybinding")
-
 local modkey = "Mod4"
 local terminal = "urxvt"
 local altkey = "Mod1"
@@ -113,18 +111,6 @@ local util_keys = awful.util.table.join(
         end,
         {description="increases the background light by 15%", group="awesome"}
     ),
-    --[[
-    awful.key(
-        { modkey,"Shift", "Control" }, "r",
-        awesome.restart,
-        {description = "reload awesome", group = "awesome"}
-    ),
-    awful.key(
-        { modkey, "Shift"   }, "q",
-        awesome.quit,
-        {description = "quit awesome", group = "awesome"}
-    ),
-    --]]
     -- swap clients
     awful.key({ altkey, }, "Tab",
         function ()
@@ -137,6 +123,17 @@ local util_keys = awful.util.table.join(
             alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")
         end,
         {description = "switch clients", group = "awesome"}
+    ),
+    awful.key({ modkey, "Control" }, "n",
+        function ()
+            local c = awful.client.restore()
+            -- Focus restored client
+            if c then
+                client.focus = c
+                c:raise()
+            end
+        end,
+        {description = "restore minimized", group = "client"}
     )
 )
 
@@ -177,59 +174,134 @@ local layout_keys = awful.util.table.join(
     )
 )
 
-local enable_switching = function(maximumTags)end
+local function setTagSwitching(maximumTags) 
+    if maximumTags > 9 then
+        maximumTags = 9
+    end
+    for i = 1, maximumTags do
+        tagkeys = awful.util.table.join(
+            tagkeys,
+            -- View tag only.
+            awful.key({ modkey }, "#" .. i + 9,
+                      function ()
+                            local screen = awful.screen.focused()
+                            local tag = screen.tags[i]
+                            if tag then
+                               tag:view_only()
+                            end
+                      end,
+                      {description = "view tag #"..i, group = "tag"}),
+            -- Toggle tag display.
+            awful.key({ modkey, "Control" }, "#" .. i + 9,
+                      function ()
+                          local screen = awful.screen.focused()
+                          local tag = screen.tags[i]
+                          if tag then
+                             awful.tag.viewtoggle(tag)
+                          end
+                      end,
+                      {description = "toggle tag #" .. i, group = "tag"}),
+            -- Move client to tag.
+            awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                      function ()
+                          if client.focus then
+                              local tag = client.focus.screen.tags[i]
+                              if tag then
+                                  client.focus:move_to_tag(tag)
+                              end
+                         end
+                      end,
+                      {description = "move focused client to tag #"..i, group = "tag"}),
+            -- Toggle tag on focused client.
+            awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                      function ()
+                          if client.focus then
+                              local tag = client.focus.screen.tags[i]
+                              if tag then
+                                  client.focus:toggle_tag(tag)
+                              end
+                          end
+                      end,
+                      {description = "toggle focused client on tag #" .. i, group = "tag"})
+            )
+    end
+end
 
-local bindings = awful.util.table.join(
-    util_keys,
-    launcher_keys,
-    layout_keys
-)
+local function setAwesomeUtility(awesome)
+    awful.util.table.join(
+        util_keys,
+        awful.key(
+            { modkey,"Shift" }, "r",
+            awesome.restart,
+            {description = "reload awesome", group = "awesome"}
+        ),
+        awful.key(
+            { modkey, "Shift"   }, "q",
+            awesome.quit,
+            {description = "quit awesome", group = "awesome"}
+        )
+    )
+end
+
+local function getGlobalKeys()
+    return awful.util.table.join(
+        util_keys,
+        launcher_keys,
+        layout_keys,
+        tagkeys
+    )
+end
 
 -- define all the key bindings specifically for the clients
 -- e.g toggle fullscreen, minimize, close
-local client_keys = awful.util.table.join(
-    awful.key(
-        { modkey }, "f",
-        function (c)
-            c.fullscreen = not c.fullscreen
-            c:raise()
-        end,
-        {description = "toggle fullscreen", group = "client"}
-    ),
-    awful.key(
-        { modkey, "Shift" }, "c",
-        function (c) 
-            c:kill()
-        end,
-        {description = "close", group = "client"}
-    ),
-    awful.key(
-        { modkey }, "t",
-        function (c) 
-            c.ontop = not c.ontop
-        end,
-        {description = "toggle keep on top", group = "client"}
-    ),
-    awful.key(
-        { modkey }, "n",
-        function (c)
--- The client currently has the input focus, so it cannot be
--- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end ,
-        {description = "minimize", group = "client"}
-    ),
-    awful.key(
-        { modkey }, "m",
-        function (c)
-            c.maximized = not c.maximized
-            c:raise()
-        end ,
-        {description = "maximize", group = "client"}
+local function getClientKeys()
+    client_keys = awful.util.table.join(
+        awful.key(
+            { modkey }, "f",
+            function (c)
+                c.fullscreen = not c.fullscreen
+                c:raise()
+            end,
+            {description = "toggle fullscreen", group = "client"}
+        ),
+        awful.key(
+            { modkey, "Shift" }, "c",
+            function (c) 
+                c:kill()
+            end,
+            {description = "close", group = "client"}
+        ),
+        awful.key(
+            { modkey }, "t",
+            function (c) 
+                c.ontop = not c.ontop
+            end,
+            {description = "toggle keep on top", group = "client"}
+        ),
+        awful.key(
+            { modkey }, "n",
+            function (c)
+    -- The client currently has the input focus, so it cannot be
+    -- minimized, since minimized clients can't have the focus.
+                c.minimized = true
+            end ,
+            {description = "minimize", group = "client"}
+        ),
+        awful.key(
+            { modkey }, "m",
+            function (c)
+                c.maximized = not c.maximized
+                c:raise()
+            end ,
+            {description = "maximize", group = "client"}
+        )
     )
-)
+    return client_keys
+end
 
 return { 
-    bindings = bindings,
-    clientkeys = client_keys
+    setTagSwitching = setTagSwitching,
+    setAwesomeUtility = setAwesomeUtility,
+    getGlobalKeys = getGlobalKeys,
+    getClientKeys = getClientKeys
 }
