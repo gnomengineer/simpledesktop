@@ -1,6 +1,7 @@
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
+local conky = require("conkyHUD")
 
 local modkey = "Mod4"
 local terminal = "urxvt"
@@ -49,7 +50,7 @@ local util_keys = awful.util.table.join(
     awful.key(
         { modkey }, "c",
         function ()
-            awful.spawn(terminal)
+            conky.toggleConky()
         end,
         {description="toggle conky HUD", group="awesome"}
     ),
