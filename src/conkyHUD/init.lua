@@ -9,7 +9,7 @@ local function get_conky(default)
         return conky
     end
 
-    conky = awful.client.iterate(function(c) return c.class == "Conky" end)()
+    conky = awful.client.iterate(function(c) return c.class == "ConkyClock" end)()
     return conky or default
 end
     

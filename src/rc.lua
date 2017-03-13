@@ -287,7 +287,15 @@ awful.rules.rules = {
      }
     },
 
-    { rule = { class = "Conky" },
+    { rule = { class = "ConkyClock" },
+      properties = {
+          floating = true,
+          sticky = true,
+          ontop = false,
+          focusable = false
+      }
+    },
+    { rule = { class = "Conky"},
       properties = {
           floating = true,
           sticky = true,
