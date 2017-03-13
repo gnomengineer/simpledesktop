@@ -12,6 +12,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
 local keybinding = require("keybinding")
+local battery = require("battery")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -80,6 +81,8 @@ alttab.settings.preview_box = true                                 -- display pr
 alttab.settings.preview_box_bg = "#b1aaaa80"                       -- background color
 alttab.settings.preview_box_border = "#22222200"                   -- border-color
 alttab.settings.client_opacity = true
+
+battery.start(120,battery.checkBattery)
 
 -- {{{ Helper functions
 local function client_menu_toggle_fn()
