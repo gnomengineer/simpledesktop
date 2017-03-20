@@ -64,7 +64,7 @@ local util_keys = awful.util.table.join(
     awful.key(
         { modkey }, "l",
         function()
-            awful.spawn("slock")
+            awful.spawn("i3lock -u -i /usr/share/awesome/themes/default/lockscreen.png")
         end,
         {description="lock the screen", group="awesome"}
     ),
