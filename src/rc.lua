@@ -290,6 +290,7 @@ awful.rules.rules = {
      }
     },
 
+    --TODO remove the conky from the alttab feature
     { rule = { class = "ConkyClock" },
       properties = {
           floating = true,
@@ -306,6 +307,7 @@ awful.rules.rules = {
           focusable = false
       }
     },
+    --]]
     -- Floating clients.
     { rule_any = {
         instance = {
