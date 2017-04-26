@@ -71,7 +71,7 @@ local util_keys = awful.util.table.join(
     awful.key(
         { }, "Print",
         function()
-           awful.spawn("scrot -u 'screenshot_%y%m%d_%T.png'")
+           awful.spawn("scrot -u '~/screenshot_%y%m%d_%T.png'")
         end,
         {description="take selective screentshot", group="awesome"}
     ),
