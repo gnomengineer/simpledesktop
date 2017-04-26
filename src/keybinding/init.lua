@@ -2,6 +2,7 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
 local conky = require("conkyHUD")
+local naughty = require("naughty")
 
 local modkey = "Mod4"
 local terminal = "urxvt"
@@ -50,7 +51,15 @@ local util_keys = awful.util.table.join(
     awful.key(
         { modkey }, "c",
         function ()
-            conky.toggleConky()
+            --conky.toggleConky()
+            --TODO make this a separate module with toggle
+            naughty.notify({
+                preset = naughty.config.presets.normal,
+                text = os.date("%H:%M \n %a, %d. %b %Y"),
+                position = "top_middle",
+                timeout = 3
+
+            })
         end,
         {description="toggle conky HUD", group="awesome"}
     ),
