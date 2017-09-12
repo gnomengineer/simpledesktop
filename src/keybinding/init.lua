@@ -7,7 +7,7 @@ local startview = require("startview")
 startview.setup()
 
 local modkey = "Mod4"
-local terminal = "tilda"
+local terminal = "terminator"
 local altkey = "Mod1"
 
 -- short cut assignement for standard programs

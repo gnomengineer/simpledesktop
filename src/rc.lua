@@ -44,7 +44,7 @@ end
 beautiful.init(awful.util.get_themes_dir() .. "igotblues/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "tilda"
+terminal = "terminator"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
