@@ -3,9 +3,11 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
 local conky = require("conkyHUD")
 local naughty = require("naughty")
+local startview = require("startview")
+startview.setup()
 
 local modkey = "Mod4"
-local terminal = "urxvt"
+local terminal = "tilda"
 local altkey = "Mod1"
 
 -- short cut assignement for standard programs
@@ -43,6 +45,11 @@ local launcher_keys = awful.util.table.join(
 -- keybinding for various utility functions
 -- e.g. toggle conky, print screen, window lock
 local util_keys = awful.util.table.join( 
+    awful.key(
+        { modkey }, "u",
+        startview.toggle_startview,
+        {description="toggle start view", group="awesome"}
+    ),
     awful.key(
         { modkey }, "s",
         hotkeys_popup.show_help,
