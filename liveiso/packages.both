@@ -103,7 +103,6 @@ python2
 qt5-base
 screen
 qtcreator
-sed
 setserial
 sshfs
 sudo
