@@ -2,8 +2,8 @@
 
 set -e -u
 
-iso_name=customArch
-iso_label="customArch_$(date +%Y%m)"
+iso_name=SimpleDesktop
+iso_label="SimpleDesktop_$(date +%Y%m)"
 iso_version=$(date +%Y.%m.%d)
 install_dir=arch
 work_dir=work
