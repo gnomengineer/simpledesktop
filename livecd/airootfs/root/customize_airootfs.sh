@@ -2,15 +2,17 @@
 
 set -e -u
 
+# set GB to locale
 sed -i 's/#\(en_GB\.UTF-8\)/\1/' /etc/locale.gen
 locale-gen
 
-ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+# set timezone to CEST
+ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 
 usermod -s /usr/bin/zsh root
 
 # create user, copy skel into its home and correct ownership
-useradd -m -p "" -g users -G "tty,wheel,uucp,log,lock,dbus,network,video,audio,optical,storage,power" -s /usr/bin/zsh troopa
+useradd -m -p "" -G "users,tty,wheel,uucp,log,lock,dbus,network,video,audio,optical,storage,power" -s /usr/bin/zsh troopa
 cp -aT /etc/skel/ /home/troopa/
 chown -R troopa:troopa /home/troopa
 
