@@ -17,6 +17,10 @@ then
     echo "project (optional)"
     echo ""
     echo "done with the aftermath"
+    echo "maybe some more programs from AUR need to be installed"
+    echo "mons (optional)"
+    echo "conky-lua-archers (optional)"
+    echo ""
 else
     echo "you need to setup your ssh key for git usage"
 fi
