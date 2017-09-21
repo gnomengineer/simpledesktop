@@ -16,6 +16,10 @@ useradd -m -p "" -G "users,tty,wheel,uucp,log,lock,dbus,network,video,audio,opti
 cp -aT /etc/skel/ /home/troopa/
 chown -R troopa:troopa /home/troopa
 
+#TODO add xorg.conf to connect to the screen
+#TODO add pacman config to enable connectivity
+#TODO enable user troopa in the sudoers
+
 
 chmod 700 /root
 
