@@ -59,6 +59,12 @@ wpa_actiond
 wvdial
 xl2tpd
 zd1211-firmware
+
+# virtualbox pkgs
+virtualbox-guest-utils
+virtualbox-guest-dkms
+
+# user pkgs
 terminator
 chromium
 scrot
@@ -98,7 +104,6 @@ screen
 qtcreator
 setserial
 sshfs
-sudo
 texlive-core
 syslinux
 transmission-qt
