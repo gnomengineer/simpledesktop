@@ -16,11 +16,6 @@ useradd -m -p "" -G "users,tty,wheel,uucp,log,lock,dbus,network,video,audio,opti
 cp -aT /etc/skel/ /home/troopa/
 chown -R troopa:troopa /home/troopa
 
-#TODO add xorg.conf to connect to the screen
-#TODO add pacman config to enable connectivity
-#TODO enable user troopa in the sudoers
-
-
 chmod 700 /root
 
 sed -i 's/#\(PermitRootLogin \).\+/\1yes/' /etc/ssh/sshd_config
@@ -31,5 +26,5 @@ sed -i 's/#\(HandleSuspendKey=\)suspend/\1ignore/' /etc/systemd/logind.conf
 sed -i 's/#\(HandleHibernateKey=\)hibernate/\1ignore/' /etc/systemd/logind.conf
 sed -i 's/#\(HandleLidSwitch=\)suspend/\1ignore/' /etc/systemd/logind.conf
 
-systemctl enable pacman-init.service choose-mirror.service
+systemctl enable pacman-init.service choose-mirror.service dhcpcd.service
 systemctl set-default multi-user.target
