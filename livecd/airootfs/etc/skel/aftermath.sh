@@ -17,6 +17,13 @@
     ## setup simpledesktop
     echo "cloning simpledesktop via HTTPS..."
     git clone --recursive https://github.com/gnomengineer/simpledesktop.git /tmp/simpledesktop
+
+    # check if awesome folder exist, if not create it
+    if [! -d ~/.config/awesome ]
+    then
+        mkdir ~/.config/awesome
+    fi 
+    
     # copy the awesome configuration to the local config file
     echo "copying simpledesktop configuration to config folder"
     cp -r /tmp/simpledesktop/src/* ~/.config/awesome/
@@ -41,10 +48,10 @@
     echo "updating pacman"
     sudo pacman -Syu
 
-    echo "changing user shell"
-    chsh -s /bin/zsh
     echo "asking for new password"
     passwd
+    echo "changing user shell"
+    chsh -s /bin/zsh
     echo ""
     echo "DONE with the aftermath!"
     echo ""
