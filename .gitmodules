@@ -1,0 +1,6 @@
+[submodule "src/startview"]
+	path = src/startview
+	url = https://github.com/gnomengineer/StartView.git
+[submodule "src/awesome-switcher-preview"]
+	path = src/awesome-switcher-preview
+	url = https://github.com/berlam/awesome-switcher-preview.git
