@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 #if [ ~/.ssh/id_rsa.pub -e ]
 #then
     ## setup zsh
     echo "cloning zprezto configuration via HTTPS..."
-    git clone https://github.com/gnomengineer/prezto.git ~/.zprezto
+    git clone --recursive https://github.com/gnomengineer/prezto.git ~/.zprezto
 
     echo "copying config files..."
     setopt EXTENDED_GLOB
@@ -16,17 +16,25 @@
     echo ""
     ## setup simpledesktop
     echo "cloning simpledesktop via HTTPS..."
-    git clone https://github.com/gnomengineer/simpledesktop.git /tmp/simpledesktop
+    git clone --recursive https://github.com/gnomengineer/simpledesktop.git /tmp/simpledesktop
     # copy the awesome configuration to the local config file
     echo "copying simpledesktop configuration to config folder"
     cp -r /tmp/simpledesktop/src/* ~/.config/awesome/
-    #TODO make this a submodule part for simpledesktop (to make the include easier)
-    git clone https://github.com/berlam/awesome-switcher-preview.git ~/.config/awesome
-    if [ ~/.config/awesome/rc.lua -e ]
+    if [ -e ~/.config/awesome/rc.lua ]
     then
         echo "simpledesktop was installed successfully!"
     else
         echo "(WW) something is wrong with simpledesktop. Maybe the X11 wont start properly"
+    fi
+
+    # installing vundle for vim
+    echo "installing vundle to vim..."
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    if [ -d ~/.vim/bundle/Vundle.vim ]
+    then
+        echo "vundle installed!"
+    else
+        echo "(WW) vundle was not correctly installed"
     fi
 
     echo ""
