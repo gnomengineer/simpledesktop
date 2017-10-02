@@ -12,7 +12,7 @@ ln -sf /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 usermod -s /usr/bin/zsh root
 
 # create user, copy skel into its home and correct ownership
-useradd -m -p "" -G "users,tty,wheel,uucp,log,lock,dbus,network,video,audio,optical,storage,power" -s /usr/bin/zsh troopa
+useradd -m -p "" -G "users,tty,wheel,uucp,log,lock,dbus,network,video,audio,optical,storage,power" -s /bin/bash troopa
 cp -aT /etc/skel/ /home/troopa/
 chown -R troopa:troopa /home/troopa
 
