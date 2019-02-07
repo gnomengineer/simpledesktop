@@ -1,4 +1,5 @@
 local awful = require("awful")
+local wibox = require("wibox")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
 local conky = require("conkyHUD")
@@ -36,7 +37,33 @@ local launcher_keys = awful.util.table.join(
     awful.key(
         { modkey }, "r",
         function () 
-            awful.screen.focused().mypromptbox:run() 
+            current_screen = awful.screen.focused()
+            current_screen.mywibox.visible = true
+            awful.prompt.run(
+                {},
+                wibox.widget{
+                    text = 'Run: ',
+                    align = 'center',
+                    valign = 'center',
+                    forced_height = 80,
+                    forced_width = 295,
+                    widget = wibox.widget.textbox
+                },
+                function(command)
+                    local result = awful.util.spawn(command)
+                    if type(result) == "string" then
+                        naughty.notify({
+                            text=result
+                        })
+                    end
+                end,
+                awful.completion.shell,
+                awful.util.getdir("cache") .. "/history",
+                50,
+                function()
+                    current_screen.mywibox.visible = false
+                end
+            )
         end,
         {description = "run prompt", group = "launcher"}
     )
