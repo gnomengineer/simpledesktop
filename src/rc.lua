@@ -215,11 +215,12 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = wibox({ 
         ontop = true,
         screen = s, 
-        height = 80,
+        height = 40,
         width = 300,
         x = (s.geometry.width-300)/2,
         y = (s.geometry.height-80)/2,
         visible = false,
+        shape = gears.shape.rounded_rect,
         opacity = 0.5
     })
 
