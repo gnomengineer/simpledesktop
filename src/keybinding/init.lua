@@ -39,17 +39,10 @@ local launcher_keys = awful.util.table.join(
         function () 
             current_screen = awful.screen.focused()
             current_screen.mywibox.visible = true
-            awful.prompt.run(
-                {},
-                wibox.widget{
-                    text = 'Run: ',
-                    align = 'center',
-                    valign = 'center',
-                    forced_height = 80,
-                    forced_width = 295,
-                    widget = wibox.widget.textbox
-                },
-                function(command)
+            awful.prompt.run{
+                prompt = "Run: ",
+                textbox = current_screen.mypromptbox.widget,
+                exe_callback = function(command)
                     local result = awful.util.spawn(command)
                     if type(result) == "string" then
                         naughty.notify({
@@ -57,13 +50,10 @@ local launcher_keys = awful.util.table.join(
                         })
                     end
                 end,
-                awful.completion.shell,
-                awful.util.getdir("cache") .. "/history",
-                50,
-                function()
+                done_callback = function()
                     current_screen.mywibox.visible = false
                 end
-            )
+            }
         end,
         {description = "run prompt", group = "launcher"}
     )
