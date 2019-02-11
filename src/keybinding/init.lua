@@ -42,6 +42,7 @@ local launcher_keys = awful.util.table.join(
             current_screen.mywibox.visible = true
             awful.prompt.run{
                 prompt = "  Run: ",
+                font = "Verdana 15",
                 textbox = current_screen.mypromptbox.widget,
                 exe_callback = function(command)
                     local result = awful.util.spawn(command)

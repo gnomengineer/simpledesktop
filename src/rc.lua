@@ -217,6 +217,8 @@ awful.screen.connect_for_each_screen(function(s)
         screen = s, 
         height = 40,
         width = 300,
+        border = "#000000",
+        border_width = 3,
         x = (s.geometry.width-300)/2,
         y = (s.geometry.height-80)/2,
         visible = false,
