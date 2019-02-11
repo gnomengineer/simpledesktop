@@ -1,4 +1,5 @@
 local awful = require("awful")
+local gears = require("gears")
 local wibox = require("wibox")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local alttab = require("awesome-switcher-preview")
@@ -9,6 +10,7 @@ local startview = require("startview")
 local modkey = "Mod4"
 local terminal = "terminator"
 local altkey = "Mod1"
+local timeHUDVisible = false
 
 -- short cut assignement for standard programs
 local launcher_keys = awful.util.table.join(
@@ -76,13 +78,25 @@ local util_keys = awful.util.table.join(
         function ()
             --conky.toggleConky()
             --TODO make this a separate module with toggle
-            naughty.notify({
-                preset = naughty.config.presets.normal,
-                text = os.date("%H:%M \n %a, %d. %b %Y"),
-                position = "top_middle",
-                timeout = 3
+            if not timeHUDVisible then
+                naughty.notify({
+                    preset = naughty.config.presets.normal,
+                    text = os.date("%H:%M - %a, %d. %b %y"),
+                    font = "verdana 15",
+                    width = 300,
+                    height = 70,
+                    bg = "#000000",
+                    fg = "#4E9A06",
+                    position = "top_left",
+                    border_width = 3,
+                    timeout = 3,
+                    destroy = function() timeHUDVisible = false end,
+                    margin = 20
 
-            })
+                })
+                timeHUDVisible = true
+            end
+
         end,
         {description="toggle conky HUD", group="awesome"}
     ),
