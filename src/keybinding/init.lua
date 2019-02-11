@@ -5,7 +5,6 @@ local alttab = require("awesome-switcher-preview")
 local conky = require("conkyHUD")
 local naughty = require("naughty")
 local startview = require("startview")
-startview.setup()
 
 local modkey = "Mod4"
 local terminal = "terminator"
