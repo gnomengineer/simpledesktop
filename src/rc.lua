@@ -223,7 +223,7 @@ awful.screen.connect_for_each_screen(function(s)
         y = (s.geometry.height-80)/2,
         visible = false,
         shape = gears.shape.rounded_rect,
-        opacity = 0.5
+        opacity = 0.7
     })
 
     -- Add widgets to the wibox
