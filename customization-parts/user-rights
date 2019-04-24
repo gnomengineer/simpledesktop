@@ -1,0 +1,3 @@
+troopa ALL=(ALL) ALL
+troopa ALL=(ALL) NOPASSWD: /usr/bin/wifi-menu
+troopa ALL=(ALL) NOPASSWD: /usr/bin/beep
