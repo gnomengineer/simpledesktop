@@ -116,11 +116,18 @@ local util_keys = awful.util.table.join(
         {description="lock the screen", group="awesome"}
     ),
     awful.key(
+        { altkey }, "Print",
+        function()
+           awful.spawn("scrot -s '" .. os.getenv("HOME") .. "/screenshot_%y%m%d_%T.png'")
+        end,
+        {description="take selective screenshot", group="awesome"}
+    ),
+    awful.key(
         { }, "Print",
         function()
-           awful.spawn("scrot -u '~/screenshot_%y%m%d_%T.png'")
+           awful.spawn("scrot -u '" .. os.getenv("HOME") .. "/screenshot_%y%m%d_%T.png'")
         end,
-        {description="take selective screentshot", group="awesome"}
+        {description="take screentshot of focused window", group="awesome"}
     ),
     -- Volume handling
     awful.key(
