@@ -24,7 +24,7 @@ local launcher_keys = awful.util.table.join(
     awful.key(
         { modkey }, "b",
         function () 
-            awful.spawn("chromium") 
+            awful.spawn("firefox") 
         end,
         {description = "start browser", group = "launcher"}
     ),
@@ -126,6 +126,13 @@ local util_keys = awful.util.table.join(
         { }, "Print",
         function()
            awful.spawn("scrot -u '" .. os.getenv("HOME") .. "/screenshot_%y%m%d_%T.png'")
+        end,
+        {description="take screentshot of focused window", group="awesome"}
+    ),
+    awful.key(
+        { altkey }, "Print",
+        function()
+           awful.spawn("scrot -u '/tmp/screenshot_%y%m%d_%T.png'")
         end,
         {description="take screentshot of focused window", group="awesome"}
     ),
