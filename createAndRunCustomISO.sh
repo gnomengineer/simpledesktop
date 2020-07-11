@@ -23,6 +23,9 @@ cp customization-parts/hostname customization-parts/locale.conf "$1/livecd/airoo
 #add custom packages
 cat customization-parts/packages.txt >> "$1/livecd/packages.x86_64"
 
+#add helper scripts to users home
+cp helper-scripts/*.sh "$1/livecd/airootfs/etc/skel"
+
 #prepare and run the build.sh
 sudo chown -R root:root "$1/livecd/"
 cd "$1/livecd/" && sudo ./build.sh -v
