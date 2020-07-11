@@ -1,16 +1,15 @@
 # user pkgs
 terminator
-chromium
+firefox
 scrot
 i3lock
-nitrogen
 mypaint
 audacity
 gimp
 texstudio
-#umlet
+plantuml
 evince
-okular
+hexchat
 mpv
 youtube-dl
 alsa-firmware
@@ -29,14 +28,11 @@ gparted
 id3v2
 inkscape
 moc
-octave
 neovim
 python
-python2
 qt5-base
 screen
 qtcreator
-#setserial
 sshfs
 texlive-core
 syslinux
