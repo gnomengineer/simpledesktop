@@ -58,10 +58,10 @@ altkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.floating,
     -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
@@ -333,13 +333,26 @@ awful.rules.rules = {
           "AlarmWindow",  -- Thunderbird's calendar.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true }
+    },
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = true }
     },
 
+    -- Add special kruler rules
+    { rule_any = {
+        class = {
+          "kruler"
+        }
+      },
+      properties = {
+        floating = true,
+        border_width = 0,
+        titlebars_enabled = false
+      }
+    },
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
