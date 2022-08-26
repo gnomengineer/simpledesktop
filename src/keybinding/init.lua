@@ -65,7 +65,7 @@ local launcher_keys = awful.util.table.join(
 -- e.g. toggle conky, print screen, window lock
 local util_keys = awful.util.table.join( 
     awful.key(
-        { modkey }, "u",
+        { modkey }, "e",
         startview.toggle_startview,
         {description="toggle start view", group="awesome"}
     ),
@@ -73,6 +73,35 @@ local util_keys = awful.util.table.join(
         { modkey }, "s",
         hotkeys_popup.show_help,
         {description="show help", group="awesome"}
+    ),
+    awful.key(
+        { modkey }, "v",
+        function ()
+            if not timeHUDVisible then
+                local battery = ""
+
+                awful.spawn.easy_async("acpi" , function(out)
+                    battery = out
+                end)
+                naughty.notify({
+                    preset = naughty.config.presets.normal,
+                    text = battery,
+                    font = "verdana 15",
+                    width = 300,
+                    height = 70,
+                    bg = "#000000",
+                    fg = "#4E9A06",
+                    position = "top_left",
+                    border_width = 3,
+                    timeout = 3,
+                    destroy = function() timeHUDVisible = false end,
+                    margin = 20
+
+                })
+                timeHUDVisible = true
+            end
+        end,
+        {description="toggle battery HUD", group="awesome"}
     ),
     awful.key(
         { modkey }, "c",
@@ -118,21 +147,14 @@ local util_keys = awful.util.table.join(
     awful.key(
         { altkey }, "Print",
         function()
-           awful.spawn("scrot -s '" .. os.getenv("HOME") .. "/screenshot_%y%m%d_%T.png'")
+           awful.spawn("scrot -s '" .. os.getenv("HOME") .. "/screenshot-%y%m%d-%H%M%S.png'")
         end,
         {description="take selective screenshot", group="awesome"}
     ),
     awful.key(
         { }, "Print",
         function()
-           awful.spawn("scrot -u '" .. os.getenv("HOME") .. "/screenshot_%y%m%d_%T.png'")
-        end,
-        {description="take screentshot of focused window", group="awesome"}
-    ),
-    awful.key(
-        { altkey }, "Print",
-        function()
-           awful.spawn("scrot -u '/tmp/screenshot_%y%m%d_%T.png'")
+           awful.spawn("scrot -u '" .. os.getenv("HOME") .. "/screenshot-%y%m%d-%H%M%S.png'")
         end,
         {description="take screentshot of focused window", group="awesome"}
     ),
