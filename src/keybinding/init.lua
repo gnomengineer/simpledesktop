@@ -147,14 +147,14 @@ local util_keys = awful.util.table.join(
     awful.key(
         { altkey }, "Print",
         function()
-           awful.spawn("scrot -s '" .. os.getenv("HOME") .. "/screenshot-%y%m%d-%H%M%S.png'")
+           awful.spawn("scrot -s '/tmp/screenshot-%y%m%d-%H%M%S.png'")
         end,
         {description="take selective screenshot", group="awesome"}
     ),
     awful.key(
         { }, "Print",
         function()
-           awful.spawn("scrot -u '" .. os.getenv("HOME") .. "/screenshot-%y%m%d-%H%M%S.png'")
+           awful.spawn("scrot -u '/tmp/screenshot-%y%m%d-%H%M%S.png'")
         end,
         {description="take screentshot of focused window", group="awesome"}
     ),
