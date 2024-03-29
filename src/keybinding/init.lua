@@ -117,7 +117,7 @@ local util_keys = awful.util.table.join(
                     height = 70,
                     bg = "#000000",
                     fg = "#4E9A06",
-                    position = "top_left",
+                    position = "top_middle",
                     border_width = 3,
                     timeout = 3,
                     destroy = function() timeHUDVisible = false end,
@@ -179,6 +179,27 @@ local util_keys = awful.util.table.join(
             awful.spawn("amixer set Master toggle")
         end,
         {description="toggles the volume on or off", group="awesome"}
+    ),
+    awful.key(
+        { } , "XF86AudioPlay",
+        function()
+            awful.spawn("playerctl play-pause")
+        end,
+        {description="plays/pauses music", group="awesome"}
+    ),
+    awful.key(
+        { } , "XF86AudioNext",
+        function()
+            awful.spawn("playerctl next")
+        end,
+        {description="plays next song in queue", group="awesome"}
+    ),
+    awful.key(
+        { } , "XF86AudioPrev",
+        function()
+            awful.spawn("playerctl previous")
+        end,
+        {description="plays previous song in queue", group="awesome"}
     ),
     -- Brightness handling
     awful.key(
